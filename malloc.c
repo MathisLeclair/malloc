@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:03 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/08 17:13:49 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/08 17:29:16 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*malloc(size_t size)
 	init();
 	if ((long)size <= tny)
 	{
-		if ((truc->tinycurr + size) > truc->tiny_max)
+		if ((long)(truc->tinycurr + size) > truc->tiny_max)
 			return (NULL);
 		truc->tinycurr += size;
 		return (small_alloc(truc->tiny, size));
