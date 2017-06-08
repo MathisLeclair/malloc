@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:03 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/08 17:29:16 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/08 17:57:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*small_alloc(t_link *test, long size)
 	node = test;
 	while (test->next)
 	{
-		if ((char *)test->next - (char *)test >= size)
+		if ((char *)test->next - (char *)test->end >= size)
 			break ;
 		test = test->next;
 	}

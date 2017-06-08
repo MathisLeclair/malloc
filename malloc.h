@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:04 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/08 17:13:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/08 17:58:52 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "./libft/libft.h"
 
 # define tny 8 * getpagesize()
-# define sml 16 * getpagesize()
+# define sml 32 * getpagesize()
 # define PRT PROT_READ | PROT_WRITE
 # define MAP MAP_ANON | MAP_PRIVATE
 
