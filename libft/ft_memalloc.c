@@ -14,11 +14,11 @@
 
 void	*ft_memalloc(size_t size)
 {
-	void *truc;
+	void *g_truc;
 
-	truc = (void *)malloc(size);
-	if (truc == NULL)
+	g_truc = (void *)malloc(size);
+	if (g_truc == NULL)
 		return (NULL);
-	ft_memset(truc, 0, size);
-	return (truc);
+	ft_memset(g_truc, 0, size);
+	return (g_truc);
 }

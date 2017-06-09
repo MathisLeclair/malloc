@@ -6,31 +6,32 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 17:08:30 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/09 16:26:08 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:00:59 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-t_struc *truc = NULL;
+t_struc *g_truc = NULL;
 
-void	init()
+void	init(void)
 {
-	if (truc == NULL)
+	if (g_truc == NULL)
 	{
-		truc = mmap(NULL, sizeof(t_struc) + tny * 100 + sml
+		g_truc = mmap(NULL, sizeof(t_struc) + TNY * 100 + SML
 		* 100 + sizeof(t_link) * 200, PRT, MAP, -1, 0);
-		truc->large = (t_link *)(truc + 1);
-		truc->tiny_max = tny * 100;
-		truc->small_max = sml * 100;
-		truc->tiny = truc->large + 1;
-		truc->tiny->next = NULL;
-		truc->tiny->end = truc->tiny + 1;
-		truc->small = (t_link *)((char *)truc->tiny + tny * 101 + sizeof(t_link) * 100);
-		truc->small->next = NULL;
-		truc->small->end = truc->small + 1;
-		truc->tinycurr = 0;
-		truc->smallcurr = 0;
-		truc->large->next = NULL;
+		g_truc->large = (t_link *)(g_truc + 1);
+		g_truc->tiny_max = TNY * 100;
+		g_truc->small_max = SML * 100;
+		g_truc->tiny = g_truc->large + 1;
+		g_truc->tiny->next = NULL;
+		g_truc->tiny->end = g_truc->tiny + 1;
+		g_truc->small = (t_link *)((char *)g_truc->tiny + TNY * 101 +
+		sizeof(t_link) * 100);
+		g_truc->small->next = NULL;
+		g_truc->small->end = g_truc->small + 1;
+		g_truc->tinycurr = 0;
+		g_truc->smallcurr = 0;
+		g_truc->large->next = NULL;
 	}
 }

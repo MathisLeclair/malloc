@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 19:12:26 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/09 15:32:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 16:59:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		print_block(t_link *node)
 		write(1, " - ", 3);
 		print_adress((long)node->end, 0);
 		i = (char *)node->end - (char *)node - sizeof(t_link);
-		write (1, " : ", 3);
+		write(1, " : ", 3);
 		ft_putnbr(i);
 		ft_putstr(" octets\n");
 		total += i;
@@ -55,19 +55,19 @@ void	print_name(char *str, int i, t_link *node)
 	ft_putchar('\n');
 }
 
-void	show_alloc_mem()
+void	show_alloc_mem(void)
 {
 	int total;
 
-	if (!truc)
+	if (!g_truc)
 		return ;
 	total = 0;
-	print_name("TINY : ", 7, truc->tiny);
-	total += print_block(truc->tiny);
-	print_name("SMALL : ", 8, truc->small);
-	total += print_block(truc->small);
-	print_name("LARGE : ", 8, truc->large);
-	total += print_block(truc->large);
+	print_name("TINY : ", 7, g_truc->tiny);
+	total += print_block(g_truc->tiny);
+	print_name("SMALL : ", 8, g_truc->small);
+	total += print_block(g_truc->small);
+	print_name("LARGE : ", 8, g_truc->large);
+	total += print_block(g_truc->large);
 	ft_putstr("Total : ");
 	ft_putnbr(total);
 	ft_putstr(" octets\n");

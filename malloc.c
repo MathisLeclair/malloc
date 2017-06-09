@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:03 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/09 16:47:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:01:16 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	*small_alloc(t_link *test, long size)
 
 void	*malloc2(size_t size)
 {
-	if ((long)(truc->tinycurr + size) > truc->tiny_max)
+	if ((long)(g_truc->tinycurr + size) > g_truc->tiny_max)
 		return (NULL);
-	truc->tinycurr += size;
-	return (small_alloc(truc->tiny, size));
+	g_truc->tinycurr += size;
+	return (small_alloc(g_truc->tiny, size));
 }
 
 void	*malloc(size_t size)
@@ -47,16 +47,16 @@ void	*malloc(size_t size)
 		return (NULL);
 	size += sizeof(t_link);
 	init();
-	if ((long)size <= tny)
+	if ((long)size <= TNY)
 		return (malloc2(size));
-	else if ((long)size <= sml)
+	else if ((long)size <= SML)
 	{
-		if (truc->smallcurr + (long)size > truc->small_max)
+		if (g_truc->smallcurr + (long)size > g_truc->small_max)
 			return (NULL);
-		truc->smallcurr += size;
-		return (small_alloc(truc->small, size));
+		g_truc->smallcurr += size;
+		return (small_alloc(g_truc->small, size));
 	}
-	node = truc->large;
+	node = g_truc->large;
 	while (node->next)
 		node = node->next;
 	node->next = mmap(NULL, size, PRT, MAP, -1, 0);

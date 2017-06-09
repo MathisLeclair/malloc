@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:04 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/09 13:13:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:00:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,34 @@
 # include <sys/mman.h>
 # include "./libft/libft.h"
 
-# define tny 8 * getpagesize()
-# define sml 32 * getpagesize()
+# define TNY 8 * getpagesize()
+# define SML 32 * getpagesize()
 # define PRT PROT_READ | PROT_WRITE
 # define MAP MAP_ANON | MAP_PRIVATE
 
-void	free(void *ptr);
-void	*malloc(size_t size);
-void	*realloc(void *ptr, size_t size);
-void	init();
-void 	show_alloc_mem();
+void				free(void *ptr);
+void				*malloc(size_t size);
+void				*realloc(void *ptr, size_t size);
+void				init();
+void				show_alloc_mem();
 
-typedef struct	s_link
+typedef struct		s_link
 {
 	struct s_link	*end;
 	struct s_link	*next;
-}				t_link;
+}					t_link;
 
-typedef struct	s_struc
+typedef struct		s_struc
 {
-	t_link	*tiny;
-	long	tiny_max;
-	size_t	tinycurr;
-	t_link	*small;
-	long	small_max;
-	long	smallcurr;
-	t_link	*large;
-}				t_struc;
+	t_link			*tiny;
+	long			tiny_max;
+	size_t			tinycurr;
+	t_link			*small;
+	long			small_max;
+	long			smallcurr;
+	t_link			*large;
+}					t_struc;
 
-extern t_struc *truc;
+extern t_struc		*g_truc;
 
 #endif

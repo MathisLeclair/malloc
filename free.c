@@ -6,26 +6,26 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/09 16:46:40 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:00:46 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-int		check_node(void *ptr, t_link *node)
+int		check_node(void *ptr, t_link *nod)
 {
-	while (node->next)
+	while (nod->next)
 	{
-		if (ptr == node->next + 1)
+		if (ptr == nod->next + 1)
 		{
-			if ((char *)node->next->end - (char *)node->next <= tny)
-				truc->tinycurr -= (char *)node->next->end - (char *)node->next;
+			if ((char *)nod->next->end - (char *)nod->next <= TNY)
+				g_truc->tinycurr -= (char *)nod->next->end - (char *)nod->next;
 			else
-				truc->smallcurr -= (char *)node->next->end - (char *)node->next;
-			node->next = node->next->next;
+				g_truc->smallcurr -= (char *)nod->next->end - (char *)nod->next;
+			nod->next = nod->next->next;
 			return (1);
 		}
-		node = node->next;
+		nod = nod->next;
 	}
 	return (0);
 }
@@ -37,11 +37,11 @@ void	free(void *ptr)
 
 	if (!ptr)
 		return ;
-	if (check_node(ptr, truc->tiny) == 1)
+	if (check_node(ptr, g_truc->tiny) == 1)
 		return ;
-	if (check_node(ptr, truc->small) == 1)
+	if (check_node(ptr, g_truc->small) == 1)
 		return ;
-	node = truc->large;
+	node = g_truc->large;
 	while (node->next)
 	{
 		nxt = node->next->next;

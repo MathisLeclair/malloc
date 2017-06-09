@@ -16,21 +16,21 @@ int		verif_ptr(void *ptr)
 {
 	t_link *node;
 
-	node = truc->tiny;
+	node = g_truc->tiny;
 	while (node->next)
 	{
 		if (ptr == node->next + 1)
 			return (1);
 		node = node->next;
 	}
-	node = truc->small;
+	node = g_truc->small;
 	while (node->next)
 	{
 		if (ptr == node->next + 1)
 			return (1);
 		node = node->next;
 	}
-	node = truc->large;
+	node = g_truc->large;
 	while (node->next)
 	{
 		if (ptr == node->next + 1)
