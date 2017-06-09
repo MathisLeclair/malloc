@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:03 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/09 13:15:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 13:44:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	*malloc(size_t size)
 	while (node->next)
 		node = node->next;
 	node->next = mmap(NULL, size, PRT, MAP, -1, 0);
-	node->next->end = (t_link *)((char *)node->next + size);
-	node->next->next = NULL;
 	if (node->next == NULL)
 		return (NULL);
+	node->next->end = (t_link *)((char *)node->next + size);
+	node->next->next = NULL;
 	return (node->next + 1);
 }
