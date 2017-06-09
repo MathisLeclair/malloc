@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 17:08:30 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/09 13:13:18 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 13:59:22 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init()
 		truc->tiny->next = NULL;
 		truc->tiny->end = (t_link *)(truc + 2);
 		truc->small = (t_link *)((char *)truc->tiny + tny * 100);
+		truc->small->next = NULL;
 		truc->small->end = truc->small + 1;
 		truc->tinycurr = 0;
 		truc->smallcurr = 0;
