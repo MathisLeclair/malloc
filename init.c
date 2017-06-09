@@ -6,12 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 17:08:30 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/08 17:51:43 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 13:13:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-#include <stdio.h>
 
 t_struc *truc = NULL;
 
@@ -19,7 +18,8 @@ void	init()
 {
 	if (truc == NULL)
 	{
-		truc = mmap(NULL, sizeof(t_struc) + tny * 100 + sml * 100, PRT, MAP, -1, 0);
+		truc = mmap(NULL, sizeof(t_struc) + tny * 100 + sml
+		* 100, PRT, MAP, -1, 0);
 		truc->tiny_max = tny * 100;
 		truc->small_max = sml * 100;
 		truc->tiny = (t_link *)(truc + 1);

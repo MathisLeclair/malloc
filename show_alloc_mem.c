@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 19:12:26 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/08 17:13:58 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 13:13:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ void	show_alloc_mem()
 	ft_putstr(" octets");
 	write(1, "\n", 1);
 }
-
