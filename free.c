@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/08 17:14:01 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 16:46:40 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int		check_node(void *ptr, t_link *node)
 	{
 		if (ptr == node->next + 1)
 		{
-			truc->tinycurr -= (char *)node->next->end - (char *)node->next;
+			if ((char *)node->next->end - (char *)node->next <= tny)
+				truc->tinycurr -= (char *)node->next->end - (char *)node->next;
+			else
+				truc->smallcurr -= (char *)node->next->end - (char *)node->next;
 			node->next = node->next->next;
 			return (1);
 		}
@@ -39,13 +42,14 @@ void	free(void *ptr)
 	if (check_node(ptr, truc->small) == 1)
 		return ;
 	node = truc->large;
-	while (node)
+	while (node->next)
 	{
-		nxt = node->next;
-		if (node + 1 == ptr)
+		nxt = node->next->next;
+		if (node->next + 1 == ptr)
 		{
-			munmap(node, (char *)node->next->end - (char *)node->next);
-			node = nxt;
+			munmap(node->next, (char *)node->next->end - (char *)node->next);
+			node->next = nxt;
+			break ;
 		}
 		node = node->next;
 	}

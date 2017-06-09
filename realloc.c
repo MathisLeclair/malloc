@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:09 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/08 17:13:42 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/06/09 16:47:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	*realloc(void *ptr, size_t size)
 	if (verif_ptr(ptr) == 0)
 		return (NULL);
 	ptr2 = malloc(size);
+	if (ptr2 == NULL)
+		return (NULL);
 	ft_memcpy(ptr2, ptr, size);
 	free(ptr);
 	return (ptr2);

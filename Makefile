@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/06/09 14:22:48 by mleclair         ###   ########.fr        #
+#    Updated: 2017/06/09 15:35:57 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ $(NAME): $(OBJ)
 	@echo "----------------------------------------"
 	@echo "|       Debut de la compilation        |"
 	@echo "|              Ecole 42                |"
+	@make -C ./libft
 	@clang -Wall -Wextra -Werror -L./libft -lft -shared -o $(NAME) $(OBJ)
 	@rm -f $(LINK)
 	@ln -s $(NAME) $(LINK)
@@ -60,7 +61,6 @@ $(NAME): $(OBJ)
 	@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 $(OBJ): %.o: %.c
-	@make -C ./libft
 	@gcc -c -Wall -Wextra -Werror -I. $< -o $@
 
 clean:
