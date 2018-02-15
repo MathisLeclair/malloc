@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:09 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/15 12:12:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/15 13:44:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		*realloc(void *ptr, size_t size)
 	size += sizeof(t_link);
 	node = realloc_small(g_truc->tiny, ptr, size, g_truc->tiny_max);
 	if (!ptr)
-		return(malloc(size));
+		return (malloc(size));
 	if (node != NULL)
 		return (node);
 	node = realloc_small(g_truc->small, ptr, size, g_truc->small_max);
