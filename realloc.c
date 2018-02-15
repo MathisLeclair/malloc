@@ -6,52 +6,75 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:09 by mleclair          #+#    #+#             */
-/*   Updated: 2017/06/09 16:47:54 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/15 12:12:51 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-int		verif_ptr(void *ptr)
+static int	refit(t_link *start, t_link *node, long size, long max)
 {
-	t_link *node;
-
-	node = g_truc->tiny;
-	while (node->next)
+	if (((char*)node->next + size <= (char*)node->next->end)
+		|| (node->next->next != NULL && (char*)node->next + size
+		<= (char*)node->next->next) || (node->next->next == NULL
+		&& ((char*)node->next + size) - (char*)start <= max))
 	{
-		if (ptr == node->next + 1)
-			return (1);
-		node = node->next;
-	}
-	node = g_truc->small;
-	while (node->next)
-	{
-		if (ptr == node->next + 1)
-			return (1);
-		node = node->next;
-	}
-	node = g_truc->large;
-	while (node->next)
-	{
-		if (ptr == node->next + 1)
-			return (1);
-		node = node->next;
+		node->next->end = (t_link*)((char*)node->next + size);
+		return (1);
 	}
 	return (0);
 }
 
-void	*realloc(void *ptr, size_t size)
+static void	*realloc_small(t_link *start, t_link *ptr, long size, long max)
 {
-	void	*ptr2;
+	t_link *node;
 
-	if (!size || !ptr)
-		return (NULL);
-	if (verif_ptr(ptr) == 0)
-		return (NULL);
-	ptr2 = malloc(size);
-	if (ptr2 == NULL)
-		return (NULL);
-	ft_memcpy(ptr2, ptr, size);
-	free(ptr);
-	return (ptr2);
+	node = start;
+	while (node->next != NULL)
+	{
+		if (ptr == node->next + 1)
+		{
+			if (refit(start, node, size, max) == 1)
+				return (ptr);
+			ptr = malloc(size);
+			if (ptr == NULL)
+				return (NULL);
+			if (size > (char*)node->next->end - (char*)node->next)
+				size = (char*)node->next->end - (char*)node->next;
+			ft_memcpy(ptr, node->next + 1, size);
+			free(node->next);
+			return (ptr);
+		}
+		node = node->next;
+	}
+	return (NULL);
+}
+
+void		*realloc(void *ptr, size_t size)
+{
+	t_link *node;
+
+	size += sizeof(t_link);
+	node = realloc_small(g_truc->tiny, ptr, size, g_truc->tiny_max);
+	if (!ptr)
+		return(malloc(size));
+	if (node != NULL)
+		return (node);
+	node = realloc_small(g_truc->small, ptr, size, g_truc->small_max);
+	if (node != NULL)
+		return (node);
+	node = g_truc->large;
+	while (node->next != NULL)
+	{
+		if (ptr != node->next + 1 && (node = node->next) != NULL)
+			continue ;
+		if ((ptr = malloc(size)) == NULL)
+			return (NULL);
+		if (size > (size_t)((char*)node->next->end - (char*)node->next))
+			size = (char*)node->next->end - (char*)node->next;
+		ft_memcpy(ptr, node->next + 1, size);
+		free(node->next);
+		return (ptr);
+	}
+	return (NULL);
 }

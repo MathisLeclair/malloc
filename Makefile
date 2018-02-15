@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/06/09 15:35:57 by mleclair         ###   ########.fr        #
+#    Updated: 2018/02/15 12:13:07 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ NAME = libft_malloc_$(HOSTTYPE).so
 LINK = libft_malloc.so
 
 FILE =	malloc \
-		realloc \
 		show_alloc_mem \
+		realloc \
 		init \
 		free
 		
@@ -61,7 +61,7 @@ $(NAME): $(OBJ)
 	@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 $(OBJ): %.o: %.c
-	@gcc -c -Wall -Wextra -Werror -I. $< -o $@
+	@gcc -c -g -Wall -Wextra -Werror -I. $< -o $@
 
 clean:
 	@make -C ./libft clean
