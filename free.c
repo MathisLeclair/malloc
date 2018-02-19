@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:06 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/15 11:31:21 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/19 13:25:52 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		check_node(void *ptr, t_link *nod)
 	return (0);
 }
 
-void	free(void *ptr)
+void	free2(void *ptr)
 {
 	t_link *node;
 	t_link *nxt;
@@ -54,4 +54,13 @@ void	free(void *ptr)
 		node = node->next;
 	}
 	return ;
+}
+
+void	free(void *ptr)
+{
+	pthread_mutex_t	lock;
+
+	pthread_mutex_unlock(&lock);
+	free2(ptr);
+	pthread_mutex_unlock(&lock);
 }

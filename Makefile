@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2018/02/15 12:13:07 by mleclair         ###   ########.fr        #
+#    Updated: 2018/02/19 14:12:15 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,32 @@ FILE =	malloc \
 OBJ  := $(addsuffix .o, $(FILE))
 
 all: $(NAME)
+
+test: all
+	@ cc -o t0 ./test/test0.c 
+
+	@ cc -o t1 ./test/test1.c
+	@ cc -o t2 ./test/test2.c
+	@ cc -o t3 ./test/test3.c
+	@ cc -o t3b ./test/test3bis.c
+	@ cc -o t4 ./test/test4.c
+	@ cc -w -o t5 ./test/test5.c -L. -lft_malloc
+
+testex: test
+	@ echo '############# launching test 0 ################'
+	@ /usr/bin/time -l ./t0
+	@ echo '############# launching test 1 ################'
+	@ ./test/run.sh /usr/bin/time -l ./t1
+	@ echo '############# launching test 2 ################'
+	@ ./test/run.sh /usr/bin/time -l ./t2
+	@ echo '############# launching test 3 ################'
+	@ ./test/run.sh ./t3
+	@ echo '############# launching test 3b ################'
+	@ ./test/run.sh ./t3b
+	@ echo '############# launching test 4 ################'
+	@ ./test/run.sh ./t4
+	@ echo '############# launching test 5 ################'
+	@ ./t5
 
 $(NAME): $(OBJ)
 	@echo "----------------------------------------"
@@ -67,10 +93,14 @@ clean:
 	@make -C ./libft clean
 	@rm -rf $(OBJ)
 
+tclean:
+	@rm -rf t0 t1 t2 t3 t3b t4 t5
+
 fclean: clean
 	@make -C ./libft fclean
 	@rm -rf $(NAME) $(LINK)
+	@rm -rf t0 t1 t2 t3 t3b t4 t5
 
 re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re test testex tclean

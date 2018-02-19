@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 19:12:26 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/14 16:01:21 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/19 13:29:10 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	print_name(char *str, int i, t_link *node)
 	ft_putchar('\n');
 }
 
-void	show_alloc_mem(void)
+void	show_alloc_mem2(void)
 {
 	int total;
 
@@ -71,4 +71,13 @@ void	show_alloc_mem(void)
 	ft_putstr("Total : ");
 	ft_putnbr(total);
 	ft_putstr(" octets\n");
+}
+
+void	show_alloc_mem(void)
+{
+	pthread_mutex_t	lock;
+	
+	pthread_mutex_lock(&lock);
+	show_alloc_mem2();
+	pthread_mutex_unlock(&lock);
 }

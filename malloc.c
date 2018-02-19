@@ -6,63 +6,62 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:03 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/15 11:50:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/19 14:11:04 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void	*small_alloc(t_link *test, long size)
+
+static void	*small_malloc(t_link *start, long size, long max)
 {
 	t_link *node;
-	t_link *old;
+	t_link *tmp;
 
-	node = test;
-	while (test->next)
+	node = start;
+	while (node->next != NULL)
 	{
-		if ((char *)test->next - (char *)test->end >= size)
+		if ((char*)node->next - (char*)node->end >= size)
 			break ;
-		test = test->next;
+		node = node->next;
 	}
-	old = test->next;
-	test->next = test->end;
-	test->next->end = (t_link *)((char *)test->next + size);
-	test->next->next = old;
-	return (test->next + 1);
-}
-
-void	*malloc2(size_t size)
-{
-	if ((long)(g_truc->tinycurr + size) > g_truc->tiny_max)
+	if ((char*)node->end + size > (char*)start + max)
 		return (NULL);
-	g_truc->tinycurr += size;
-	return (small_alloc(g_truc->tiny, size));
+	tmp = node->next;
+	node->next = node->end;
+	node->next->end = (t_link*)((char*)node->next + size);
+	node->next->next = tmp;
+	return (node->next + 1);
 }
 
-void	*malloc(size_t size)
+void		*malloc2(size_t size)
 {
 	t_link *node;
 
-	if (!size)
-		return (NULL);
-	size += sizeof(t_link);
 	init();
-	if ((long)size <= TNY)
-		return (malloc2(size));
-	else if ((long)size <= SML)
-	{
-		if (g_truc->smallcurr + (long)size > g_truc->small_max)
-			return (NULL);
-		g_truc->smallcurr += size;
-		return (small_alloc(g_truc->small, size));
-	}
+	size += sizeof(t_link);
+	if (size <= (size_t)g_truc->tiny_max)
+		return (small_malloc(g_truc->tiny, size, g_truc->tiny_max));
+	if (size <= (size_t)g_truc->small_max)
+		return (small_malloc(g_truc->small, size, g_truc->small_max));
 	node = g_truc->large;
-	while (node->next)
+	while (node->next != NULL)
 		node = node->next;
 	node->next = mmap(NULL, size, PRT, MAP, -1, 0);
 	if (node->next == NULL)
 		return (NULL);
-	node->next->end = (t_link *)((char *)node->next + size);
+	node->next->end = (t_link*)((char*)node->next + size);
 	node->next->next = NULL;
 	return (node->next + 1);
+}
+
+void	*malloc(size_t size)
+{
+	pthread_mutex_t	lock;
+	void			*ptr;
+
+	pthread_mutex_lock(&lock);
+	ptr = malloc2(size);
+	pthread_mutex_unlock(&lock);
+	return (ptr);
 }

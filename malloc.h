@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:04 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/15 11:52:56 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/19 13:22:46 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/mman.h>
+# include <pthread.h>
 # include "./libft/libft.h"
 
 # define TNY 8 * getpagesize()

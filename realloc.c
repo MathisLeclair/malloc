@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:09 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/19 11:26:23 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/19 13:27:49 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	*realloc_small(t_link *start, t_link *ptr, long size, long max)
 	return (NULL);
 }
 
-void		*realloc(void *ptr, size_t size)
+void		*realloc2(void *ptr, size_t size)
 {
 	t_link *node;
 
@@ -77,4 +77,16 @@ void		*realloc(void *ptr, size_t size)
 		return (ptr);
 	}
 	return (NULL);
+}
+
+void		*realloc(void *ptr, size_t size)
+{
+	pthread_mutex_t	lock;
+	void			*ret;
+
+	pthread_mutex_lock(&lock);
+	ret = realloc2(ptr, size);
+	pthread_mutex_unlock(&lock);
+	
+	return(ret);
 }
