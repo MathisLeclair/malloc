@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 19:12:26 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/19 13:29:10 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/19 14:15:06 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	show_alloc_mem2(void)
 void	show_alloc_mem(void)
 {
 	pthread_mutex_t	lock;
-	
+
 	pthread_mutex_lock(&lock);
 	show_alloc_mem2();
 	pthread_mutex_unlock(&lock);

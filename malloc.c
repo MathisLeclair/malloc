@@ -6,12 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:03 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/19 14:11:04 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/19 14:13:59 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
 
 static void	*small_malloc(t_link *start, long size, long max)
 {
@@ -55,7 +54,7 @@ void		*malloc2(size_t size)
 	return (node->next + 1);
 }
 
-void	*malloc(size_t size)
+void		*malloc(size_t size)
 {
 	pthread_mutex_t	lock;
 	void			*ptr;

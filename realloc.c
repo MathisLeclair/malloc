@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 13:45:09 by mleclair          #+#    #+#             */
-/*   Updated: 2018/02/19 13:27:49 by mleclair         ###   ########.fr       */
+/*   Updated: 2018/02/19 14:14:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ void		*realloc(void *ptr, size_t size)
 	pthread_mutex_lock(&lock);
 	ret = realloc2(ptr, size);
 	pthread_mutex_unlock(&lock);
-	
-	return(ret);
+	return (ret);
 }
