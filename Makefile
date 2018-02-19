@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2018/02/19 14:12:15 by mleclair         ###   ########.fr        #
+#    Updated: 2018/02/19 14:20:50 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ OBJ  := $(addsuffix .o, $(FILE))
 all: $(NAME)
 
 test: all
-	@ cc -o t0 ./test/test0.c 
-
+	@echo compilation of test
+	@ cc -o t0 ./test/test0.c
 	@ cc -o t1 ./test/test1.c
 	@ cc -o t2 ./test/test2.c
 	@ cc -o t3 ./test/test3.c
